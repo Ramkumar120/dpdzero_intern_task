@@ -7,6 +7,14 @@ import (
 )
 
 func main() {
+
+
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+    w.WriteHeader(http.StatusOK)  // Send HTTP 200 OK status
+    w.Write([]byte("OK"))         // Send response body "OK"
+})
+
+
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		jsonResponse(w, map[string]string{
 			"status":  "ok",
@@ -20,9 +28,10 @@ func main() {
 		})
 	})
 
-	log.Println("Service 1 listening on port 8001...")
+
+	log.Println("congrats! Service 1 successfully started on port 8001...")
 	if err := http.ListenAndServe(":8001", nil); err != nil {
-		log.Fatalf("Server failed: %v", err)
+		log.Fatalf("oops!Server starting failed: %v", err)
 	}
 }
 
